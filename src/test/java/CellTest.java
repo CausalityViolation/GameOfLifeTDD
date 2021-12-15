@@ -1,4 +1,5 @@
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -23,7 +24,7 @@ public class CellTest {
     }
 
     @Test
-    void cellWithThreeOrFourNeighborsSurvive() {
+    void cellWithTwoOrThreeNeighborsSurvive() {
 
         Cell cell = new Cell(Cell.stateOfCell.ALIVE);
         Cell.stateOfCell actual = cell.getNextState(2);
@@ -31,5 +32,16 @@ public class CellTest {
         assertEquals(Cell.stateOfCell.ALIVE, actual);
 
     }
+
+    @Test
+    void cellWithTMoreThanThreeNeighborsDieDueToOverpopulation() {
+
+        Cell cell = new Cell(Cell.stateOfCell.ALIVE);
+        Cell.stateOfCell actual = cell.getNextState(4);
+
+        assertEquals(Cell.stateOfCell.DEAD, actual);
+
+    }
+
 
 }

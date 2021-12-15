@@ -6,9 +6,14 @@ public class Cell {
         this.state = state;
     }
 
-    public stateOfCell getNextState(int i) {
+    public stateOfCell getNextState(int numberOfNeighbors) {
 
-        if (i < 2) {
+        if (numberOfNeighbors < 2) {
+            return stateOfCell.DEAD;
+        }
+
+        if (numberOfNeighbors > 3) {
+
             return stateOfCell.DEAD;
         }
         else {
