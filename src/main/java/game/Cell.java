@@ -2,7 +2,10 @@ package game;
 
 public class Cell {
 
-    public Cell() {
+    private stateOfCell state;
+
+    public Cell(stateOfCell state) {
+        this.state = state;
     }
 
     public stateOfCell getNextState(int numberOfNeighbors) {

@@ -19,7 +19,7 @@ class CellTest {
     @Test
     void cellWithFewerThanTwoLiveNeighboursDie() {
 
-        Cell cell = new Cell();
+        Cell cell = new Cell(Cell.stateOfCell.ALIVE);
         Cell.stateOfCell actual = cell.getNextState(1);
 
         assertEquals(Cell.stateOfCell.DEAD, actual);
@@ -28,7 +28,7 @@ class CellTest {
     @Test
     void cellWithTwoNeighborsSurvive() {
 
-        Cell cell = new Cell();
+        Cell cell = new Cell(Cell.stateOfCell.ALIVE);
         Cell.stateOfCell actual = cell.getNextState(2);
 
         assertEquals(Cell.stateOfCell.ALIVE, actual);
@@ -38,7 +38,7 @@ class CellTest {
     @Test
     void cellWithExactlyThreeNeighborsRevives() {
 
-        Cell cell = new Cell();
+        Cell cell = new Cell(Cell.stateOfCell.DEAD);
         Cell.stateOfCell actual = cell.getNextState(3);
 
         assertEquals(Cell.stateOfCell.ALIVE, actual);
@@ -50,7 +50,7 @@ class CellTest {
     @ValueSource(ints = {4, 5, 6, 7, 8})
     void cellWithMoreThanThreeNeighborsDieDueToOverpopulation(int numberOfNeighbors) {
 
-        Cell cell = new Cell();
+        Cell cell = new Cell(Cell.stateOfCell.ALIVE);
         Cell.stateOfCell actual = cell.getNextState(numberOfNeighbors);
 
         assertEquals(Cell.stateOfCell.DEAD, actual);
