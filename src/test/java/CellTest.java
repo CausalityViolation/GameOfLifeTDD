@@ -1,9 +1,11 @@
+import game.Cell;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CellTest {
+class CellTest {
 
     /*
     <RULES>
@@ -17,16 +19,16 @@ public class CellTest {
     @Test
     void cellWithFewerThanTwoLiveNeighboursDie() {
 
-        Cell cell = new Cell(Cell.stateOfCell.ALIVE);
+        Cell cell = new Cell();
         Cell.stateOfCell actual = cell.getNextState(1);
 
         assertEquals(Cell.stateOfCell.DEAD, actual);
     }
 
     @Test
-    void cellWithTwoOrThreeNeighborsSurvive() {
+    void cellWithTwoNeighborsSurvive() {
 
-        Cell cell = new Cell(Cell.stateOfCell.ALIVE);
+        Cell cell = new Cell();
         Cell.stateOfCell actual = cell.getNextState(2);
 
         assertEquals(Cell.stateOfCell.ALIVE, actual);
@@ -34,14 +36,24 @@ public class CellTest {
     }
 
     @Test
-    void cellWithTMoreThanThreeNeighborsDieDueToOverpopulation() {
+    void cellWithExactlyThreeNeighborsRevives() {
 
-        Cell cell = new Cell(Cell.stateOfCell.ALIVE);
-        Cell.stateOfCell actual = cell.getNextState(4);
+        Cell cell = new Cell();
+        Cell.stateOfCell actual = cell.getNextState(3);
 
-        assertEquals(Cell.stateOfCell.DEAD, actual);
+        assertEquals(Cell.stateOfCell.ALIVE, actual);
 
     }
 
+
+    @ParameterizedTest
+    @ValueSource(ints = {4, 5, 6, 7, 8})
+    void cellWithMoreThanThreeNeighborsDieDueToOverpopulation(int numberOfNeighbors) {
+
+        Cell cell = new Cell();
+        Cell.stateOfCell actual = cell.getNextState(numberOfNeighbors);
+
+        assertEquals(Cell.stateOfCell.DEAD, actual);
+    }
 
 }

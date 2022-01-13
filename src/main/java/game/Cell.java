@@ -1,26 +1,19 @@
+package game;
+
 public class Cell {
 
-    private stateOfCell state;
-
-    public Cell(stateOfCell state) {
-        this.state = state;
+    public Cell() {
     }
 
     public stateOfCell getNextState(int numberOfNeighbors) {
 
         if (numberOfNeighbors < 2) {
             return stateOfCell.DEAD;
-        }
-
-        if (numberOfNeighbors > 3) {
-
+        } else if (numberOfNeighbors == 2 || numberOfNeighbors == 3) {
+            return stateOfCell.ALIVE;
+        } else {
             return stateOfCell.DEAD;
         }
-        else {
-            return stateOfCell.ALIVE;
-        }
-
-
     }
 
     public enum stateOfCell {
