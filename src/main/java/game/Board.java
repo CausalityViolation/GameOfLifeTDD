@@ -30,4 +30,15 @@ public class Board {
 
         return stateOfCells;
     }
+
+    public void update() {
+
+        for (int row = 0; row < state.length; row++) {
+            for (int column = 0; column < state[row].length; column++) {
+                state[row][column].getNextState(0);
+            }
+        }
+
+
+    }
 }

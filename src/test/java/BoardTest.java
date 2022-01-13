@@ -3,6 +3,7 @@ import game.Cell.stateOfCell;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BoardTest {
 
@@ -22,6 +23,16 @@ class BoardTest {
         stateOfCell[][] actual = playingField.getState();
         assertArrayEquals(initialStateOfThePlayingField, actual);
 
+    }
+
+    @Test
+    void shouldUpdateCell() {
+        Board playingField = new Board(new stateOfCell[][]{{O}});
+        playingField.update();
+
+        stateOfCell[][] actual = playingField.getState();
+
+        assertEquals(stateOfCell.DEAD, actual[0][0]);
     }
 
 }

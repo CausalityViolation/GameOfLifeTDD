@@ -10,12 +10,21 @@ public class Cell {
 
     public stateOfCell getNextState(int numberOfNeighbors) {
 
-        if (numberOfNeighbors < 2) {
-            return stateOfCell.DEAD;
-        } else if (numberOfNeighbors == 2 || numberOfNeighbors == 3) {
-            return stateOfCell.ALIVE;
+        if (state == stateOfCell.ALIVE) {
+
+            if (numberOfNeighbors < 2) {
+                return stateOfCell.DEAD;
+            } else if (numberOfNeighbors == 2 || numberOfNeighbors == 3) {
+                return stateOfCell.ALIVE;
+            } else {
+                return stateOfCell.DEAD;
+            }
         } else {
-            return stateOfCell.DEAD;
+            if (numberOfNeighbors == 3) {
+                return stateOfCell.ALIVE;
+            } else {
+                return stateOfCell.DEAD;
+            }
         }
     }
 

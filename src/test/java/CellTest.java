@@ -1,15 +1,14 @@
 import game.Cell;
 import game.Cell.stateOfCell;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.EnumSource;
-import org.junit.jupiter.params.provider.ValueSource;
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class CellTest {
-
-    /*
+/*
     <RULES>
 
     Any live cell with fewer than two live neighbours dies, as if caused by under-population.
@@ -18,52 +17,37 @@ class CellTest {
     Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
      */
 
-    @Test
-    void cellWithFewerThanTwoLiveNeighboursDie() {
-
-        Cell cell = new Cell(stateOfCell.ALIVE);
-        stateOfCell actual = cell.getNextState(1);
-
-        assertEquals(stateOfCell.DEAD, actual);
-    }
+@RunWith(JUnitParamsRunner.class)
+public class CellTest {
 
     @Test
-    void cellWithTwoNeighborsSurvive() {
+    @Parameters({
+            "ALIVE, 0, DEAD",
+            "ALIVE, 1, DEAD",
+            "ALIVE, 2, ALIVE",
+            "ALIVE, 3, ALIVE",
+            "ALIVE, 4, DEAD",
+            "ALIVE, 5, DEAD",
+            "ALIVE, 6, DEAD",
+            "ALIVE, 7, DEAD",
+            "ALIVE, 8, DEAD",
+            "DEAD, 0, DEAD",
+            "DEAD, 1, DEAD",
+            "DEAD, 2, DEAD",
+            "DEAD, 3, ALIVE",
+            "DEAD, 4, DEAD",
+            "DEAD, 5, DEAD",
+            "DEAD, 6, DEAD",
+            "DEAD, 7, DEAD",
+            "DEAD, 8, DEAD"
+    })
+    public void shouldFulfillTransition(String initialState, int numberOfNeighbors, String expectedState) {
 
-        Cell cell = new Cell(stateOfCell.ALIVE);
-        stateOfCell actual = cell.getNextState(2);
+        Cell cell = new Cell(stateOfCell.valueOf(initialState));
 
-        assertEquals(stateOfCell.ALIVE, actual);
-
-    }
-
-    @Test
-    void cellWithExactlyThreeNeighborsRevives() {
-
-        Cell cell = new Cell(stateOfCell.DEAD);
-        stateOfCell actual = cell.getNextState(3);
-
-        assertEquals(stateOfCell.ALIVE, actual);
-
-    }
-
-
-    @ParameterizedTest
-    @ValueSource(ints = {4, 5, 6, 7, 8})
-    void cellWithMoreThanThreeNeighborsDieDueToOverpopulation(int numberOfNeighbors) {
-
-        Cell cell = new Cell(stateOfCell.ALIVE);
         stateOfCell actual = cell.getNextState(numberOfNeighbors);
+        stateOfCell expected = stateOfCell.valueOf(expectedState);
 
-        assertEquals(stateOfCell.DEAD, actual);
+        assertEquals(expected, actual);
     }
-
-    @ParameterizedTest
-    @EnumSource(stateOfCell.class)
-    void cellShouldReturnItsState(stateOfCell state) {
-        Cell cell = new Cell(state);
-        assertEquals(state, cell.getState());
-
-    }
-
 }
