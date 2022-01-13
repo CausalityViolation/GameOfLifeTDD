@@ -45,9 +45,22 @@ public class CellTest {
 
         Cell cell = new Cell(stateOfCell.valueOf(initialState));
 
-        stateOfCell actual = cell.getNextState(numberOfNeighbors);
+        cell.update(numberOfNeighbors);
+        stateOfCell actual = cell.getState();
+
         stateOfCell expected = stateOfCell.valueOf(expectedState);
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    @Parameters({"ALIVE", "DEAD"})
+    public void shouldReturnItsState(String initialState) {
+
+        stateOfCell original = Cell.stateOfCell.valueOf(initialState);
+        Cell cell = new Cell(original);
+
+        assertEquals(original, cell.getState());
+
     }
 }

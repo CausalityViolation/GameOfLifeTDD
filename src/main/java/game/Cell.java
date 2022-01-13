@@ -8,22 +8,18 @@ public class Cell {
         this.state = state;
     }
 
-    public stateOfCell getNextState(int numberOfNeighbors) {
+    public void update(int numberOfNeighbors) {
 
         if (state == stateOfCell.ALIVE) {
 
-            if (numberOfNeighbors < 2) {
-                return stateOfCell.DEAD;
-            } else if (numberOfNeighbors == 2 || numberOfNeighbors == 3) {
-                return stateOfCell.ALIVE;
-            } else {
-                return stateOfCell.DEAD;
+            if (numberOfNeighbors < 2 || numberOfNeighbors > 3) {
+                state = stateOfCell.DEAD;
             }
         } else {
             if (numberOfNeighbors == 3) {
-                return stateOfCell.ALIVE;
+                state = stateOfCell.ALIVE;
             } else {
-                return stateOfCell.DEAD;
+                state = stateOfCell.DEAD;
             }
         }
     }

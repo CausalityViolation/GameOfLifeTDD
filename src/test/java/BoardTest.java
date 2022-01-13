@@ -13,10 +13,10 @@ class BoardTest {
     @Test
     void boardShouldSaveItsInitialState() {
         stateOfCell[][] initialStateOfThePlayingField = {
-                {O, X, O, X},
-                {X, X, X, O},
-                {O, X, O, O},
-                {X, X, O, O},
+                {O, X, O},
+                {X, X, X},
+                {O, X, O},
+
         };
         Board playingField = new Board(initialStateOfThePlayingField);
 
@@ -35,4 +35,24 @@ class BoardTest {
         assertEquals(stateOfCell.DEAD, actual[0][0]);
     }
 
+    @Test
+    void shouldUpdateAllCells() {
+        Board playingField = new Board(new stateOfCell[][]{
+                {X, O, O},
+                {O, X, O},
+                {X, X, O}
+        });
+
+        stateOfCell[][] expected = new stateOfCell[][]{
+                {X, O, O},
+                {X, X, O},
+                {X, O, X}
+        };
+
+        playingField.update();
+        stateOfCell[][] actual = playingField.getState();
+
+        assertArrayEquals(expected, actual);
+
+    }
 }
