@@ -19,6 +19,10 @@ public class Cell {
         }
     }
 
+    public stateOfCell getState() {
+        return state;
+    }
+
     public enum stateOfCell {
         ALIVE, DEAD
     }

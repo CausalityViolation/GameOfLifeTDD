@@ -1,6 +1,8 @@
 import game.Cell;
+import game.Cell.stateOfCell;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,29 +21,29 @@ class CellTest {
     @Test
     void cellWithFewerThanTwoLiveNeighboursDie() {
 
-        Cell cell = new Cell(Cell.stateOfCell.ALIVE);
-        Cell.stateOfCell actual = cell.getNextState(1);
+        Cell cell = new Cell(stateOfCell.ALIVE);
+        stateOfCell actual = cell.getNextState(1);
 
-        assertEquals(Cell.stateOfCell.DEAD, actual);
+        assertEquals(stateOfCell.DEAD, actual);
     }
 
     @Test
     void cellWithTwoNeighborsSurvive() {
 
-        Cell cell = new Cell(Cell.stateOfCell.ALIVE);
-        Cell.stateOfCell actual = cell.getNextState(2);
+        Cell cell = new Cell(stateOfCell.ALIVE);
+        stateOfCell actual = cell.getNextState(2);
 
-        assertEquals(Cell.stateOfCell.ALIVE, actual);
+        assertEquals(stateOfCell.ALIVE, actual);
 
     }
 
     @Test
     void cellWithExactlyThreeNeighborsRevives() {
 
-        Cell cell = new Cell(Cell.stateOfCell.DEAD);
-        Cell.stateOfCell actual = cell.getNextState(3);
+        Cell cell = new Cell(stateOfCell.DEAD);
+        stateOfCell actual = cell.getNextState(3);
 
-        assertEquals(Cell.stateOfCell.ALIVE, actual);
+        assertEquals(stateOfCell.ALIVE, actual);
 
     }
 
@@ -50,10 +52,18 @@ class CellTest {
     @ValueSource(ints = {4, 5, 6, 7, 8})
     void cellWithMoreThanThreeNeighborsDieDueToOverpopulation(int numberOfNeighbors) {
 
-        Cell cell = new Cell(Cell.stateOfCell.ALIVE);
-        Cell.stateOfCell actual = cell.getNextState(numberOfNeighbors);
+        Cell cell = new Cell(stateOfCell.ALIVE);
+        stateOfCell actual = cell.getNextState(numberOfNeighbors);
 
-        assertEquals(Cell.stateOfCell.DEAD, actual);
+        assertEquals(stateOfCell.DEAD, actual);
+    }
+
+    @ParameterizedTest
+    @EnumSource(stateOfCell.class)
+    void cellShouldReturnItsState(stateOfCell state) {
+        Cell cell = new Cell(state);
+        assertEquals(state, cell.getState());
+
     }
 
 }
