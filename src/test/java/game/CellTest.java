@@ -1,12 +1,10 @@
 package game;
 
-import game.Cell;
 import game.Cell.stateOfCell;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
