@@ -46,17 +46,10 @@ public class Board {
     private int getNumberOfAliveNeighbors(stateOfCell[][] state, int row, int column) {
         int numberOfAliveNeighbors = 0;
 
-        if (row > 0) {
-            numberOfAliveNeighbors += getNumberOfAliveNeighborsInARow(state, row - 1, column);
-        }
-
+        numberOfAliveNeighbors += getNumberOfAliveNeighborsInARow(state, row - 1, column);
         numberOfAliveNeighbors += getAliveNumberOfNeighborsLeftCell(state, row, column - 1);
         numberOfAliveNeighbors += getAliveNumberOfNeighborsLeftCell(state, row, column + 1);
-
-
-        if (row < state.length - 1) {
-            numberOfAliveNeighbors += getNumberOfAliveNeighborsInARow(state, row + 1, column);
-        }
+        numberOfAliveNeighbors += getNumberOfAliveNeighborsInARow(state, row + 1, column);
 
         return numberOfAliveNeighbors;
     }
@@ -66,10 +59,11 @@ public class Board {
 
         int numberOfAliveNeighbors = 0;
 
-        numberOfAliveNeighbors += getAliveNumberOfNeighborsLeftCell(state, row, column - 1);
-        numberOfAliveNeighbors += getAliveNumberOfNeighborsLeftCell(state, row, column);
-        numberOfAliveNeighbors += getAliveNumberOfNeighborsLeftCell(state, row, column + 1);
-
+        if (row >= 0 && row < state.length) {
+            numberOfAliveNeighbors += getAliveNumberOfNeighborsLeftCell(state, row, column - 1);
+            numberOfAliveNeighbors += getAliveNumberOfNeighborsLeftCell(state, row, column);
+            numberOfAliveNeighbors += getAliveNumberOfNeighborsLeftCell(state, row, column + 1);
+        }
         return numberOfAliveNeighbors;
     }
 
