@@ -32,7 +32,7 @@ class GameLoopTest {
         testGame.setIsRunning(false);
         gameLoop.run();
 
-        Assertions.assertFalse(testGame.isUpdated);
+        assertEquals(0, testGame.numberOfIterations);
     }
 
     @Test
@@ -41,8 +41,7 @@ class GameLoopTest {
         testGame.setIsRunning(true, false);
         gameLoop.run();
 
-        assertTrue(testGame.isUpdated);
-
+        assertEquals(1, testGame.numberOfIterations);
     }
 
     @Test
@@ -52,7 +51,6 @@ class GameLoopTest {
         gameLoop.run();
 
         assertEquals(3, testGame.numberOfIterations);
-
     }
 
     @Test
@@ -68,7 +66,6 @@ class GameLoopTest {
 
         public int numberOfIterations;
         public int numberOfRenders;
-        private boolean isUpdated;
         private Queue<Boolean> isRunning;
 
         public void setIsRunning(Boolean... isRunningValues) {
@@ -77,7 +74,6 @@ class GameLoopTest {
         }
 
         public void update() {
-            isUpdated = true;
             numberOfIterations++;
         }
 
@@ -86,7 +82,10 @@ class GameLoopTest {
         }
 
         public void render() {
+            if (numberOfRenders != numberOfIterations - 1)
+                throw new RenderBeforeGameUpdateException();
             numberOfRenders++;
+
         }
     }
 }
