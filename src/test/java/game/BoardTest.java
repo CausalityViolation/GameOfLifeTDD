@@ -1,3 +1,5 @@
+package game;
+
 import game.Board;
 import game.Cell.stateOfCell;
 import org.junit.jupiter.api.Test;

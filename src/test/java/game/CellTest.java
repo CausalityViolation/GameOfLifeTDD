@@ -1,3 +1,5 @@
+package game;
+
 import game.Cell;
 import game.Cell.stateOfCell;
 import junitparams.JUnitParamsRunner;
