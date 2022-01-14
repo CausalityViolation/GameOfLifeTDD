@@ -47,54 +47,40 @@ public class Board {
         int numberOfAliveNeighbors = 0;
 
         if (row > 0) {
-            int rowAbove = row - 1;
-
-            numberOfAliveNeighbors += getNumberOfAliveNeighborsInARow(state, rowAbove, column);
+            numberOfAliveNeighbors += getNumberOfAliveNeighborsInARow(state, row - 1, column);
         }
 
-        numberOfAliveNeighbors += getAliveNumberOfNeighborsLeftCell(state, row, column);
-        if (column < state[row].length - 1) {
-            if (state[row][column + 1] == stateOfCell.ALIVE) {
-                numberOfAliveNeighbors++;
-            }
-        }
+        numberOfAliveNeighbors += getAliveNumberOfNeighborsLeftCell(state, row, column - 1);
+        numberOfAliveNeighbors += getAliveNumberOfNeighborsLeftCell(state, row, column + 1);
+
 
         if (row < state.length - 1) {
-            int rowBelow = row + 1;
-            numberOfAliveNeighbors += getNumberOfAliveNeighborsInARow(state, rowBelow, column);
+            numberOfAliveNeighbors += getNumberOfAliveNeighborsInARow(state, row + 1, column);
         }
 
         return numberOfAliveNeighbors;
     }
-
 
 
     private int getNumberOfAliveNeighborsInARow(stateOfCell[][] state, int row, int column) {
 
         int numberOfAliveNeighbors = 0;
 
+        numberOfAliveNeighbors += getAliveNumberOfNeighborsLeftCell(state, row, column - 1);
         numberOfAliveNeighbors += getAliveNumberOfNeighborsLeftCell(state, row, column);
-        if (state[row][column] == stateOfCell.ALIVE) {
-            numberOfAliveNeighbors++;
-        }
-        if (column < state[row].length - 1) {
-            if (state[row][column + 1] == stateOfCell.ALIVE) {
-                numberOfAliveNeighbors++;
-            }
-        }
+        numberOfAliveNeighbors += getAliveNumberOfNeighborsLeftCell(state, row, column + 1);
+
         return numberOfAliveNeighbors;
     }
 
 
     private int getAliveNumberOfNeighborsLeftCell(stateOfCell[][] state, int row, int column) {
 
-        int numberOfAliveNeighbors = 0;
-
-        if (column > 0) {
-            if (state[row][column - 1] == stateOfCell.ALIVE) {
-                numberOfAliveNeighbors++;
+        if (column >= 0 && column < state[row].length) {
+            if (state[row][column] == stateOfCell.ALIVE) {
+                return 1;
             }
         }
-        return numberOfAliveNeighbors;
+        return 0;
     }
 }
