@@ -13,9 +13,9 @@ class BoardTest {
     @Test
     void boardShouldSaveItsInitialState() {
         stateOfCell[][] initialStateOfThePlayingField = {
-                {O, X, O},
-                {X, X, X},
-                {O, X, O},
+                {X, O, X},
+                {O, O, O},
+                {O, X, X},
 
         };
         Board playingField = new Board(initialStateOfThePlayingField);
@@ -38,15 +38,37 @@ class BoardTest {
     @Test
     void shouldUpdateAllCells() {
         Board playingField = new Board(new stateOfCell[][]{
-                {X, O, O},
-                {O, X, O},
-                {X, X, O}
+                {O, X, X},
+                {X, O, X},
+                {O, O, X}
         });
 
         stateOfCell[][] expected = new stateOfCell[][]{
-                {X, O, O},
-                {X, X, O},
-                {X, O, X}
+                {X, X, X},
+                {X, O, X},
+                {O, O, X}
+        };
+
+        playingField.update();
+        stateOfCell[][] actual = playingField.getState();
+
+        assertArrayEquals(expected, actual);
+
+    }
+
+    @Test
+    void checkingAllSurroundingNeighbors() {
+
+        Board playingField = new Board(new stateOfCell[][]{
+                {O, O, O},
+                {O, O, O},
+                {O, O, O}
+        });
+
+        stateOfCell[][] expected = new stateOfCell[][]{
+                {O, X, O},
+                {X, X, X},
+                {O, X, O}
         };
 
         playingField.update();
