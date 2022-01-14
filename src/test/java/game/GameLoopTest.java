@@ -1,6 +1,7 @@
 package game;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -14,13 +15,21 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GameLoopTest {
 
+    private TestGame testGame;
+    private GameLoop gameLoop;
+
+    @BeforeEach
+    public void setUpGameLoop() {
+
+        testGame = new TestGame();
+        gameLoop = new GameLoop(testGame);
+
+    }
+
     @Test
     void doesNothingIfGameIsNotRunning() {
 
-        TestGame testGame = new TestGame();
         testGame.setIsRunning(false);
-        GameLoop gameLoop = new GameLoop(testGame);
-
         gameLoop.run();
 
         Assertions.assertFalse(testGame.isUpdated);
@@ -29,10 +38,7 @@ class GameLoopTest {
     @Test
     void updatesOnceIfGameIsRunning() {
 
-        TestGame testGame = new TestGame();
         testGame.setIsRunning(true, false);
-        GameLoop gameLoop = new GameLoop(testGame);
-
         gameLoop.run();
 
         assertTrue(testGame.isUpdated);
@@ -42,11 +48,8 @@ class GameLoopTest {
     @Test
     void updatesAsLongAsGameIsRunning() {
 
-        TestGame testGame = new TestGame();
         testGame.setIsRunning(true, true, true, false);
-        GameLoop loop = new GameLoop(testGame);
-
-        loop.run();
+        gameLoop.run();
 
         assertEquals(3, testGame.numerOfIterations);
 
