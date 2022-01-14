@@ -49,13 +49,7 @@ public class Board {
         if (row > 0) {
             int rowAbove = row - 1;
 
-            if (column > 0) {
-                if (state[rowAbove][column - 1] == stateOfCell.ALIVE) numberOfAliveNeighbors++;
-            }
-            if (state[rowAbove][column] == stateOfCell.ALIVE) numberOfAliveNeighbors++;
-            if (column < state[row].length - 1) {
-                if (state[rowAbove][column + 1] == stateOfCell.ALIVE) numberOfAliveNeighbors++;
-            }
+            numberOfAliveNeighbors += getNumberOfAliveNeighborsInARow(state, row, column, rowAbove);
         }
 
 
@@ -69,16 +63,29 @@ public class Board {
 
         if (row < state.length - 1) {
             int rowBelow = row + 1;
-            if (column > 0) {
-                if (state[rowBelow][column - 1] == stateOfCell.ALIVE) numberOfAliveNeighbors++;
-            }
-            if (state[rowBelow][column] == stateOfCell.ALIVE) numberOfAliveNeighbors++;
-            if (column < state[row].length - 1) {
-                if (state[rowBelow][column + 1] == stateOfCell.ALIVE) numberOfAliveNeighbors++;
-
-            }
+            numberOfAliveNeighbors += getNumberOfAliveNeighborsInARow(state, row, column, rowBelow);
         }
 
+        return numberOfAliveNeighbors;
+    }
+
+    private int getNumberOfAliveNeighborsInARow(stateOfCell[][] state, int row, int column, int rowAbove) {
+
+        int numberOfAliveNeighbors = 0;
+
+        if (column > 0) {
+            if (state[rowAbove][column - 1] == stateOfCell.ALIVE) {
+                numberOfAliveNeighbors++;
+            }
+        }
+        if (state[rowAbove][column] == stateOfCell.ALIVE) {
+            numberOfAliveNeighbors++;
+        }
+        if (column < state[row].length - 1) {
+            if (state[rowAbove][column + 1] == stateOfCell.ALIVE) {
+                numberOfAliveNeighbors++;
+            }
+        }
         return numberOfAliveNeighbors;
     }
 }

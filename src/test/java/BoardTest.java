@@ -57,7 +57,7 @@ class BoardTest {
     }
 
     @Test
-    void checkingAllSurroundingNeighbors() {
+    void checkingAllSurroundingNeighborsForOverpopulation() {
 
         Board playingField = new Board(new stateOfCell[][]{
                 {O, O, O},
