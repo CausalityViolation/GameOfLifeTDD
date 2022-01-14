@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
@@ -29,7 +30,7 @@ class GameLoopTest {
     void updatesOnceIfGameIsRunning() {
 
         TestGame testGame = new TestGame();
-        testGame.setIsRunning(true);
+        testGame.setIsRunning(true, false);
         GameLoop gameLoop = new GameLoop(testGame);
 
         gameLoop.run();
@@ -43,12 +44,18 @@ class GameLoopTest {
 
         TestGame testGame = new TestGame();
         testGame.setIsRunning(true, true, true, false);
+        GameLoop loop = new GameLoop(testGame);
+
+        loop.run();
+
+        assertEquals(3, testGame.numerOfIterations);
 
     }
 
 
     public static class TestGame implements Game {
 
+        public int numerOfIterations;
         private boolean isUpdated;
         private Queue<Boolean> isRunning;
 
@@ -59,6 +66,7 @@ class GameLoopTest {
 
         public void update() {
             isUpdated = true;
+            numerOfIterations++;
         }
 
         public boolean isRunning() {
