@@ -20,19 +20,22 @@ public class Program {
 
         while (true) {
 
-            playingField.update();
-            Cell.stateOfCell[][] updated = playingField.getState();
-
-            enterPrompt();
-
-            System.out.println("Iteration " + numberOfIterations + "\n======================");
-            for (Cell.stateOfCell[] row : updated) {
-                System.out.println(Arrays.toString(row));
-            }
-            System.out.println("======================");
-            numberOfIterations++;
-
+            gameLoop(playingField);
         }
+    }
+
+    private static void gameLoop(Board playingField) {
+        playingField.update();
+        Cell.stateOfCell[][] updated = playingField.getState();
+
+        enterPrompt();
+
+        System.out.println("Iteration " + numberOfIterations + "\n==========================");
+        for (Cell.stateOfCell[] row : updated) {
+            System.out.println(Arrays.toString(row));
+        }
+        System.out.println("==========================");
+        numberOfIterations++;
     }
 
     private static void enterPrompt() {
@@ -40,10 +43,10 @@ public class Program {
         String next = "";
 
         if (numberOfIterations > 1) {
-            next = " Next";
+            next = " next";
         }
 
-        System.out.println("Press Enter To Iterate" + next + " Cycle.");
+        System.out.println("Press Enter to iterate" + next + " cycle. Type EXIT to exit application.");
 
         if (input.nextLine().equalsIgnoreCase("exit")) {
             System.exit(0);
