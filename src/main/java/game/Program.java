@@ -12,26 +12,41 @@ public class Program {
 
     public static void main(String[] args) {
 
-        Cell.stateOfCell[][] playingField = new Cell.stateOfCell[][]{
-                {O, O, O},
-                {O, O, O},
-                {O, X, O},
-        };
+        Board playingField = new Board(new Cell.stateOfCell[][]{
+                {O, O, X},
+                {X, O, O},
+                {O, X, X}
+        });
 
         while (true) {
 
+            playingField.update();
+            Cell.stateOfCell[][] updated = playingField.getState();
+
+            enterPrompt();
+
             System.out.println("Iteration " + numberOfIterations + "\n======================");
-            for (Cell.stateOfCell[] row : playingField) {
+            for (Cell.stateOfCell[] row : updated) {
                 System.out.println(Arrays.toString(row));
             }
-            System.out.println("======================\nPress Enter To Iterate Again. Type EXIT to exit.");
+            System.out.println("======================");
             numberOfIterations++;
 
+        }
+    }
 
-            if (input.nextLine().equalsIgnoreCase("exit")) {
-                System.exit(0);
-            }
+    private static void enterPrompt() {
 
+        String next = "";
+
+        if (numberOfIterations > 1) {
+            next = " Next";
+        }
+
+        System.out.println("Press Enter To Iterate" + next + " Cycle.");
+
+        if (input.nextLine().equalsIgnoreCase("exit")) {
+            System.exit(0);
         }
     }
 }
